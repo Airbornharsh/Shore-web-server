@@ -9,34 +9,33 @@ const main = async (req: any, res: any) => {
       userName: req.body.userName,
     });
     if (tempUser) {
-      return res.status(400).send("UserName Exists!");
+      return res.status(400).send({ message: "UserName Exists!" });
     }
     tempUser = await DbModels?.user.findOne({
       emailId: req.body.emailId,
     });
     if (tempUser) {
-      return res.status(400).send("Email Id Exists!");
+      return res.status(400).send({ message: "Email Id Exists!" });
     }
     tempUser = await DbModels?.user.findOne({
       phoneNumber: req.body.phoneNumber,
     });
     if (tempUser) {
-      return res.status(400).send("Phone Number Exists!");
+      return res.status(400).send({ message: "Email Id Exists!" });
     }
 
     const hashPassword = await hash(req.body.password.trim(), 10);
 
     const newUser = new DbModels!.user({
-      emailId: req.body.emailId,
-      userName: req.body.userName,
+      emailId: req.body.emailId.trim(),
+      userName: req.body.userName.trim(),
       phoneNumber: req.body.phoneNumber,
-      name: req.body.name,
+      name: req.body.name.trim(),
       password: hashPassword,
       requestingFriends: [],
     });
 
     const data = await newUser.save();
-
 
     return res.send(data);
   } catch (e: any) {
