@@ -48,8 +48,9 @@ const userSchema = new Schema({
     },
   ],
   requestedFriends: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
-  liked: [{ type: Schema.Types.ObjectId, ref: "Post", default: [] }],
-  commented: [{ type: Schema.Types.ObjectId, ref: "Post", default: [] }],
+  postLiked: [{ type: Schema.Types.ObjectId, ref: "Post", default: [] }],
+  commentLiked: [{ type: Schema.Types.ObjectId, ref: "Comment", default: [] }],
+  commented: [{ type: Schema.Types.ObjectId, ref: "Comment", default: [] }],
   fav: [{ type: Schema.Types.ObjectId, ref: "Post", default: [] }],
 });
 

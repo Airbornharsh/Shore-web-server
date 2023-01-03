@@ -1,0 +1,36 @@
+import { DbConnect1 } from "../../../../Server/config/Db_Config";
+import Authenticate from "../../../../Server/middlewares/Authenticate";
+
+const main = async (req: any, res: any) => {
+  try {
+    if (!(req.body.description || req.body.url)) {
+      return res.status(406).send({ message: "No Data Given" });
+    }
+
+    const DbModels = await DbConnect1();
+
+    const AuthenticateDetail = await Authenticate(req, res);
+
+    const postData = await DbModels?.post.findById(req.body.postId);
+
+    if (
+      AuthenticateDetail?._id.toString().trim() ===
+      postData.userId.toString().trim()
+    ) {
+      await DbModels?.post.findByIdAndUpdate(req.body.postId, {
+        description: req.body.description
+          ? req.body.description
+          : postData.description,
+        url: req.body.url ? req.body.url : postData.url,
+      });
+
+      return res.send({ message: "Updated" });
+    } else {
+      return res.status(402).send({ message: "Not Authorized" });
+    }
+  } catch (e: any) {
+    res.status(500).send(e.message);
+  }
+};
+
+export default main;

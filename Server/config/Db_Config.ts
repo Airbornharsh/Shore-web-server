@@ -1,7 +1,7 @@
 import mongoose, { mongo } from "mongoose";
 import user from "../models/user";
-import post from "../models/post";
 import comment from "../models/comment";
+import post from "../models/post";
 import Grid from "gridfs-stream";
 
 const Db_Uri = process.env.DB_URI1;
