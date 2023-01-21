@@ -37,8 +37,11 @@ const main = async (req: any, res: any) => {
 
     const data = await newUser.save();
 
+    console.log(data);
+
     return res.send(data);
   } catch (e: any) {
+    console.log(e);
     res.status(500).send(e.message);
   }
 };

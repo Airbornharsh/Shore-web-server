@@ -3,7 +3,9 @@ import Authenticate from "../../../../../Server/middlewares/Authenticate";
 
 const main = async (req: any, res: any) => {
   try {
-    if (!req.body.postId) {
+    const body = JSON.parse(req.body);
+
+    if (!body.postId) {
       return res.status(406).send({ message: "No Data Given" });
     }
 
@@ -11,21 +13,21 @@ const main = async (req: any, res: any) => {
 
     const AuthenticateDetail = await Authenticate(req, res);
 
-    const postData = (await DbModels?.post.findById(req.body.postId)) || [];
+    const postData = (await DbModels?.post.findById(body.postId)) || [];
 
     const userData =
       (await DbModels?.user.findById(AuthenticateDetail?._id)) || [];
 
     if (
       postData.likes.includes(AuthenticateDetail?._id) ||
-      userData.postLiked.includes(req.body.postId)
+      userData.postLiked.includes(body.postId)
     ) {
-      await DbModels?.post.findByIdAndUpdate(req.body.poSstId, {
+      await DbModels?.post.findByIdAndUpdate(body.postId, {
         $pull: { likes: AuthenticateDetail?._id },
       });
 
       await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
-        $pull: { postLiked: req.body.postId },
+        $pull: { postLiked: body.postId },
       });
 
       return res.send({ message: "UnLiked" });

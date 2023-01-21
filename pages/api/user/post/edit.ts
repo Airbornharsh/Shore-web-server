@@ -3,7 +3,9 @@ import Authenticate from "../../../../Server/middlewares/Authenticate";
 
 const main = async (req: any, res: any) => {
   try {
-    if (!(req.body.description || req.body.url)) {
+    const body = JSON.parse(req.body);
+
+    if (!(body.description || body.url)) {
       return res.status(406).send({ message: "No Data Given" });
     }
 
@@ -11,17 +13,17 @@ const main = async (req: any, res: any) => {
 
     const AuthenticateDetail = await Authenticate(req, res);
 
-    const postData = await DbModels?.post.findById(req.body.postId);
+    const postData = await DbModels?.post.findById(body.postId);
 
     if (
       AuthenticateDetail?._id.toString().trim() ===
       postData.userId.toString().trim()
     ) {
-      await DbModels?.post.findByIdAndUpdate(req.body.postId, {
-        description: req.body.description
-          ? req.body.description
+      await DbModels?.post.findByIdAndUpdate(body.postId, {
+        description: body.description
+          ? body.description
           : postData.description,
-        url: req.body.url ? req.body.url : postData.url,
+        url: body.url ? body.url : postData.url,
       });
 
       return res.send({ message: "Updated" });

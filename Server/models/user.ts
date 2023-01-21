@@ -6,6 +6,9 @@ const userSchema = new Schema({
     unique: true,
     required: true,
   },
+  gender: {
+    type: String,
+  },
   userName: {
     type: String,
     unique: true,

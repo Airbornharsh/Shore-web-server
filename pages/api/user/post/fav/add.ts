@@ -13,26 +13,17 @@ const main = async (req: any, res: any) => {
 
     const AuthenticateDetail = await Authenticate(req, res);
 
-    const postData = (await DbModels?.post.findById(body.postId)) || [];
-
     const userData =
       (await DbModels?.user.findById(AuthenticateDetail?._id)) || [];
 
-    if (
-      postData.likes.includes(AuthenticateDetail?._id) ||
-      userData.postLiked.includes(body.postId)
-    ) {
-      return res.send({ message: "Already Liked" });
+    if (userData.fav.includes(body.postId)) {
+      return res.send({ message: "Already Added" });
     } else {
-      await DbModels?.post.findByIdAndUpdate(body.postId, {
-        $push: { likes: AuthenticateDetail?._id },
-      });
-
       await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
-        $push: { postLiked: body.postId },
+        $push: { fav: body.postId },
       });
 
-      return res.send({ message: "Liked" });
+      return res.send({ message: "Added" });
     }
   } catch (e: any) {
     res.status(500).send(e.message);

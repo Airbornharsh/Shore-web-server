@@ -19,8 +19,11 @@ const main = async (req: any, res: any) => {
       }
     } else if (req.body.emailId) {
       tempUser = await DbModels!.user.findOne({
-        userName: req.body.emailId.trim(),
+        emailId: req.body.emailId.trim(),
       });
+
+      console.log(tempUser);
+
       if (!tempUser) {
         return res
           .status(400)
@@ -28,7 +31,7 @@ const main = async (req: any, res: any) => {
       }
     } else if (req.body.phoneNumber) {
       tempUser = await DbModels!.user.findOne({
-        userName: req.body.phoneNumber,
+        phoneNumber: req.body.phoneNumber,
       });
       if (!tempUser) {
         return res
@@ -59,8 +62,10 @@ const main = async (req: any, res: any) => {
 
     const accessToken = sign(authUser, process.env.JWT_SECRET as Secret);
 
+
     res.send({ accessToken });
   } catch (e: any) {
+    console.log(e);
     res.status(500).send(e.message);
   }
 };
