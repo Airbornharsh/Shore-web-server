@@ -3,7 +3,10 @@ import Authenticate from "../../../../Server/middlewares/Authenticate";
 
 const main = async (req: any, res: any) => {
   try {
-    if (!req.body.userId) {
+    const body = JSON.parse(req.body);
+
+
+    if (!body.userId) {
       return res.status(406).send({ message: "No Data Given" });
     }
 
@@ -14,12 +17,12 @@ const main = async (req: any, res: any) => {
     const userData =
       (await DbModels?.user.findById(AuthenticateDetail?._id)) || [];
 
-    if (userData.friends.includes(req.body.userId)) {
-      if (userData.closeFriends.includes(req.body.postId)) {
+    if (userData.friends.includes(body.userId)) {
+      if (userData.closeFriends.includes(body.postId)) {
         return res.send({ message: "Already Added" });
       } else {
         await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
-          $push: { closeFriends: req.body.userId },
+          $push: { closeFriends: body.userId },
         });
 
         return res.send({ message: "Added" });

@@ -3,7 +3,9 @@ import Authenticate from "../../../../../Server/middlewares/Authenticate";
 
 const main = async (req: any, res: any) => {
   try {
-    if (!(req.body.postId && req.body.description)) {
+    const body = JSON.parse(req.body);
+
+    if (!(body.postId && body.description)) {
       return res.status(406).send({ message: "No Data Given" });
     }
 
@@ -13,22 +15,22 @@ const main = async (req: any, res: any) => {
 
     let toUserId;
 
-    if (req.body.to) {
-      toUserId = req.body.to;
+    if (body.to) {
+      toUserId = body.to;
     } else {
-      toUserId = (await DbModels?.post.findById(req.body.postId))?.userId;
+      toUserId = (await DbModels?.post.findById(body.postId))?.userId;
     }
-    
+
     const newComment = new DbModels!.comment({
       commented: AuthenticateDetail?._id,
-      description: req.body.description,
+      description: body.description,
       to: toUserId,
-      postId: req.body.postId,
+      postId: body.postId,
     });
-    
+
     const commentData = await newComment.save();
 
-    await DbModels?.post.findByIdAndUpdate(req.body.postId, {
+    await DbModels?.post.findByIdAndUpdate(body.postId, {
       $push: { comments: commentData._id },
     });
 

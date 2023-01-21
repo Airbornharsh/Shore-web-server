@@ -4,7 +4,9 @@ import Authenticate from "../../../../../../Server/middlewares/Authenticate";
 
 const main = async (req: any, res: any) => {
   try {
-    if (!req.body.postId) {
+    const body = JSON.parse(req.body);
+
+    if (!body.postId) {
       return res.status(406).send({ message: "Post Id Missing" });
     }
 
@@ -12,7 +14,7 @@ const main = async (req: any, res: any) => {
 
     const AuthenticateDetail = await Authenticate(req, res);
 
-    const postData = await DbModels?.post.findById(req.body.postId);
+    const postData = await DbModels?.post.findById(body.postId);
 
     const commentIds = postData?.comments;
 

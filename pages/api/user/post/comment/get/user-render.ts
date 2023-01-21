@@ -4,7 +4,9 @@ import Authenticate from "../../../../../../Server/middlewares/Authenticate";
 
 const main = async (req: any, res: any) => {
   try {
-    if (!req.body.postId) {
+    const body = JSON.parse(req.body);
+
+    if (!body.postId) {
       return res.status(406).send({ message: "Post Id Missing" });
     }
 
@@ -48,7 +50,7 @@ const main = async (req: any, res: any) => {
       //   });
 
       postData?.forEach((pos) => {
-        const tempPost =pos ;
+        const tempPost = pos;
         const comments: any[] = [];
         commentData?.forEach((com) => {
           if (pos.comments.includes(com._id)) comments.push(com);
