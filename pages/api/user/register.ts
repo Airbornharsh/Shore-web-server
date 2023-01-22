@@ -21,7 +21,7 @@ const main = async (req: any, res: any) => {
       phoneNumber: req.body.phoneNumber,
     });
     if (tempUser) {
-      return res.status(400).send({ message: "Email Id Exists!" });
+      return res.status(400).send({ message: "Phone Number Exists!" });
     }
 
     const hashPassword = await hash(req.body.password.trim(), 10);
