@@ -41,9 +41,9 @@ const main = async (req: any, res: any) => {
 
     const AuthenticateDetail = await Authenticate(req, res);
 
-    const userData = await DbModels?.user.findById(AuthenticateDetail?._id);
-
-    await DbModels?.post.findByIdAndUpdate(AuthenticateDetail?._id, {
+      const userData = await DbModels?.user.findById(AuthenticateDetail?._id);
+      
+    await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
       name: body.name ? body.name : userData.name,
       imgUrl: body.imgUrl ? body.imgUrl : userData.imgUrl,
       gender: body.gender ? body.gender : userData.gender,
