@@ -36,7 +36,8 @@ const userSchema = new Schema({
     unique: true,
   },
   posts: [{ type: Schema.Types.ObjectId, ref: "Post", default: [] }],
-  friends: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
+  followers: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
+  followings: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
   closeFriends: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
   requestingFriends: [
     {
@@ -50,7 +51,6 @@ const userSchema = new Schema({
       },
     },
   ],
-  requestedFriends: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
   postLiked: [{ type: Schema.Types.ObjectId, ref: "Post", default: [] }],
   commentLiked: [{ type: Schema.Types.ObjectId, ref: "Comment", default: [] }],
   commented: [{ type: Schema.Types.ObjectId, ref: "Comment", default: [] }],
