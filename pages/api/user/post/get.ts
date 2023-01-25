@@ -19,6 +19,8 @@ const main = async (req: any, res: any) => {
         _id: postObjectIds,
       });
 
+      postData && postData.reverse();
+
       res.send(postData);
     } else {
       res.send([]);
