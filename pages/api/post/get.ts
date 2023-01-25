@@ -14,9 +14,11 @@ const main = async (req: any, res: any) => {
       postsUserIds.push(post.userId);
     });
 
-    const userDatas = await DbModels?.user.find({
-      _id: postsUserIds,
-    });
+    const userDatas = await DbModels?.user
+      .find({
+        _id: postsUserIds,
+      })
+      .limit(2);
 
     const newPostData: {
       _id: any;
@@ -45,6 +47,8 @@ const main = async (req: any, res: any) => {
 
       newPostData.push(temp);
     });
+
+    newPostData.reverse();
 
     res.send(newPostData);
   } catch (e: any) {
