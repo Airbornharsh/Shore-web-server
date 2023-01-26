@@ -4,9 +4,18 @@ import Authenticate from "../../../Server/middlewares/Authenticate";
 
 const main = async (req: any, res: any) => {
   try {
+    const body = JSON.parse(req.body);
+
     const DbModels = await DbConnect1();
 
-    const postData = await DbModels?.post.find({});
+    const page = body.page ? body.page : 1;
+    const limit = body.limit ? body.limit : 20;
+
+    const postData = await DbModels?.post
+      .find()
+      .sort({ $natural: -1 })
+      .limit(limit)
+      .skip((page - 1) * limit);
 
     const postsUserIds: any[] = [];
 
@@ -47,8 +56,6 @@ const main = async (req: any, res: any) => {
 
       newPostData.push(temp);
     });
-
-    newPostData.reverse();
 
     res.send(newPostData);
   } catch (e: any) {
