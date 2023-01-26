@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { Schema, models, model } from "mongoose";
-import mongoosePaginate from "mongoose-paginate";
 
 const userSchema = new Schema({
   emailId: {
@@ -59,5 +58,4 @@ const userSchema = new Schema({
   fav: [{ type: Schema.Types.ObjectId, ref: "Post", default: [] }],
 });
 
-userSchema.plugin(mongoosePaginate);
 export default models.User || model("User", userSchema);
