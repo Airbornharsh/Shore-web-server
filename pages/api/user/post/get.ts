@@ -15,12 +15,12 @@ const main = async (req: any, res: any) => {
     if (postIds) {
       var postObjectIds = postIds.map((id: any) => new ObjectId(id));
 
-      const postData = await DbModels?.post.find({
-        _id: postObjectIds,
-      });
-
-      postData && postData.reverse();
-
+      const postData = await DbModels?.post
+        .find({
+          _id: postObjectIds,
+        })
+        .sort({ $natural: -1 });
+      
       res.send(postData);
     } else {
       res.send([]);
