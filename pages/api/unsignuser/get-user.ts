@@ -16,16 +16,20 @@ const main = async (req: any, res: any) => {
       .limit(limit)
       .skip((page - 1) * limit);
 
-    const newUserDatas: { userName: any; name: any; imgUrl: any; joinedDate: any; phoneNumber: any; gender: any; }[] = [];
+    const newUserDatas: { id: any; userName: any; name: any; imgUrl: any; joinedDate: any; phoneNumber: any; gender: any; posts: any; followers: any; followings: any; }[] = [];
 
     userDatas?.forEach((user) => {
       newUserDatas.push({
+        id: user._id,
         userName: user.userName,
         name: user.name,
         imgUrl: user.imgUrl,
         joinedDate: user.joinedDate,
         phoneNumber: user.phoneNumber,
         gender: user.gender,
+        posts: user.posts,
+        followers: user.followers,
+        followings: user.followings,
       });
     });
 
