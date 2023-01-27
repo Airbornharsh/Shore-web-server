@@ -16,7 +16,18 @@ const main = async (req: any, res: any) => {
       .limit(limit)
       .skip((page - 1) * limit);
 
-    const newUserDatas: { id: any; userName: any; name: any; imgUrl: any; joinedDate: any; phoneNumber: any; gender: any; posts: any; followers: any; followings: any; }[] = [];
+    const newUserDatas: {
+      id: any;
+      userName: any;
+      name: any;
+      imgUrl: any;
+      joinedDate: any;
+      phoneNumber: any;
+      gender: any;
+      posts: any;
+      followers: any;
+      followings: any;
+    }[] = [];
 
     userDatas?.forEach((user) => {
       newUserDatas.push({
