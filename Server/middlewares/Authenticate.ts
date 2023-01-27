@@ -16,7 +16,7 @@ const Authenticate = async (req: any, res: any) => {
       }
     );
 
-    if (tempErr) res.status(402).send({ message: "Not Authorized" });
+    if (tempErr) return res.status(402).send({ message: "Not Authorized" });
 
     return {
       emailId: tempUser.emailId,
@@ -26,7 +26,7 @@ const Authenticate = async (req: any, res: any) => {
       iat: tempUser.iat,
     };
   } catch (e: any) {
-    res.status(500).send(e.message);
+    return res.status(500).send(e.message);
   }
 };
 
