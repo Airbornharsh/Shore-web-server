@@ -36,6 +36,10 @@ const userSchema = new Schema({
     required: true,
     unique: true,
   },
+  isPrivate: {
+    type: Boolean,
+    required: true,
+  },
   posts: [{ type: Schema.Types.ObjectId, ref: "Post", default: [] }],
   followers: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
   followings: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
