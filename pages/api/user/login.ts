@@ -62,7 +62,6 @@ const main = async (req: any, res: any) => {
 
     const accessToken = sign(authUser, process.env.JWT_SECRET as Secret);
 
-
     res.send({ accessToken });
   } catch (e: any) {
     console.log(e);

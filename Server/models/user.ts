@@ -46,17 +46,14 @@ const userSchema = new Schema({
   followers: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
   followings: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
   closeFriends: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
+  acceptedFollowerRequests: [
+    { type: Schema.Types.ObjectId, ref: "User", default: [] },
+  ],
+  declinedFollowerRequests: [
+    { type: Schema.Types.ObjectId, ref: "User", default: [] },
+  ],
   requestingFollowers: [
-    {
-      status: {
-        type: Boolean,
-        default: false,
-      },
-      userId: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-      },
-    },
+    { type: Schema.Types.ObjectId, ref: "User", default: [] },
   ],
   postLiked: [{ type: Schema.Types.ObjectId, ref: "Post", default: [] }],
   commentLiked: [{ type: Schema.Types.ObjectId, ref: "Comment", default: [] }],
