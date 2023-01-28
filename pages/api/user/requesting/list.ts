@@ -10,63 +10,43 @@ const main = async (req: any, res: any) => {
 
     const userData = await DbModels?.user.findById(AuthenticateDetail?._id);
 
-    console.log(userData.toString());
+    const userDatas = await DbModels?.user
+      .find({
+        _id: userData.requestingFollowers,
+      })
+      .sort({ $natural: -1 });
 
-    const requestingFollowers = userData.requestingFollowers;
-    const fav = userData?.fav;
+    const newUserDatas: {
+      id: any;
+      userName: any;
+      name: any;
+      imgUrl: any;
+      joinedDate: any;
+      phoneNumber: any;
+      gender: any;
+      isPrivate: any;
+      posts: any;
+      followers: any;
+      followings: any;
+    }[] = [];
 
-    console.log(requestingFollowers);
-    console.log(fav);
-
-    if (requestingFollowers) {
-      var userObjectIds = requestingFollowers.map(
-        (request: {
-          userId: string | number | ObjectId | Buffer | Uint8Array | undefined;
-        }) => new ObjectId(request.userId)
-      );
-
-      requestingFollowers.reverse();
-
-      const userDatas = await DbModels?.user
-        .find({
-          _id: userObjectIds,
-        })
-        .sort({ $natural: -1 });
-
-      const newUserDatas: {
-        id: any;
-        userName: any;
-        name: any;
-        imgUrl: any;
-        joinedDate: any;
-        phoneNumber: any;
-        gender: any;
-        posts: any;
-        followers: any;
-        followings: any;
-        status: any;
-      }[] = [];
-
-      userDatas?.forEach((user, i) => {
-        newUserDatas.push({
-          id: user._id,
-          userName: user.userName,
-          name: user.name,
-          imgUrl: user.imgUrl,
-          joinedDate: user.joinedDate,
-          phoneNumber: user.phoneNumber,
-          gender: user.gender,
-          posts: user.posts,
-          followers: user.followers,
-          followings: user.followings,
-          status: requestingFollowers[i].status,
-        });
+    userDatas?.forEach((user, i) => {
+      newUserDatas.push({
+        id: user._id,
+        userName: user.userName,
+        name: user.name,
+        imgUrl: user.imgUrl,
+        joinedDate: user.joinedDate,
+        phoneNumber: user.phoneNumber,
+        gender: user.gender,
+        isPrivate: user.isPrivate,
+        posts: user.posts,
+        followers: user.followers,
+        followings: user.followings,
       });
+    });
 
-      res.send(newUserDatas);
-    } else {
-      res.send([]);
-    }
+    res.send(newUserDatas);
   } catch (e: any) {
     res.status(500).send(e.message);
   }
