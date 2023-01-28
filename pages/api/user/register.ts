@@ -32,7 +32,7 @@ const main = async (req: any, res: any) => {
       phoneNumber: req.body.phoneNumber,
       name: req.body.name.trim(),
       password: hashPassword,
-      requestingFriends: [],
+      requestingFollowers: [],
     });
 
     const data = await newUser.save();
