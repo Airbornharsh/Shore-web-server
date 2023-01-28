@@ -39,12 +39,13 @@ const userSchema = new Schema({
   isPrivate: {
     type: Boolean,
     required: true,
+    default: false,
   },
   posts: [{ type: Schema.Types.ObjectId, ref: "Post", default: [] }],
   followers: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
   followings: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
   closeFriends: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
-  requestingFriends: [
+  requestingFollowers: [
     {
       status: {
         type: Boolean,
