@@ -3,8 +3,8 @@ import Authenticate from "../../../../Server/middlewares/Authenticate";
 
 const main = async (req: any, res: any) => {
   try {
-    // const body = JSON.parse(req.body);
-    const body = req.body;
+    const body = JSON.parse(req.body);
+    // const body = req.body;
 
     if (!body.userId) {
       return res.status(406).send({ message: "No Data Given" });
@@ -39,13 +39,13 @@ const main = async (req: any, res: any) => {
 
           if (!user2Data.requestingFollowing.includes(body.userId)) {
             await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
-              $push: { requestingFollowers: body.userId },
+              $addToSet: { requestingFollowers: body.userId },
             });
           }
         } else {
           if (!user2Data.requestingFollowing.includes(body.userId)) {
             await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
-              $push: { requestingFollowers: body.userId },
+              $addToSet: { requestingFollowers: body.userId },
             });
           }
         }
@@ -67,7 +67,7 @@ const main = async (req: any, res: any) => {
             !user1Data.requestingFollowing.includes(AuthenticateDetail?._id)
           ) {
             await DbModels?.user.findByIdAndUpdate(body.userId, {
-              $push: { requestingFollowing: AuthenticateDetail?._id },
+              $addToSet: { requestingFollowing: AuthenticateDetail?._id },
             });
           }
         } else {
@@ -75,18 +75,18 @@ const main = async (req: any, res: any) => {
             !user1Data.requestingFollowing.includes(AuthenticateDetail?._id)
           ) {
             await DbModels?.user.findByIdAndUpdate(body.userId, {
-              $push: { requestingFollowing: AuthenticateDetail?._id },
+              $addToSet: { requestingFollowing: AuthenticateDetail?._id },
             });
           }
         }
         return res.send({ message: "Follow Requested" });
       } else {
         await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
-          $push: { followings: body.userId },
+          $addToSet: { followings: body.userId },
         });
 
         await DbModels?.user.findByIdAndUpdate(body.userId, {
-          $push: { followers: AuthenticateDetail?._id },
+          $addToSet: { followers: AuthenticateDetail?._id },
         });
 
         return res.send({ message: "Followed" });

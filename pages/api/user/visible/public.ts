@@ -11,20 +11,17 @@ const main = async (req: any, res: any) => {
       (await DbModels?.user.findById(AuthenticateDetail?._id)) || [];
 
     if (user1Data.isPrivate) {
-      await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
-        isPrivate: false,
-      });
-
       const requestIds = user1Data.requestingFollowers;
 
       await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
         $addToSet: { followers: requestIds },
         $pull: { requestingFollowers: requestIds },
+        isPrivate: false,
       });
 
       await requestIds.forEach(async (userId: any) => {
         await DbModels?.user.findByIdAndUpdate(userId, {
-          $push: { followings: AuthenticateDetail?._id },
+          $addToSet: { followings: AuthenticateDetail?._id },
           $pull: { requestingFollowing: AuthenticateDetail?._id },
         });
       });
