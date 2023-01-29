@@ -15,6 +15,20 @@ const main = async (req: any, res: any) => {
         isPrivate: false,
       });
 
+      const requestIds = user1Data.requestingFollowers;
+
+      await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
+        $addToSet: { followers: requestIds },
+        $pull: { requestingFollowers: requestIds },
+      });
+
+      await requestIds.forEach(async (userId: any) => {
+        await DbModels?.user.findByIdAndUpdate(userId, {
+          $push: { followings: AuthenticateDetail?._id },
+          $pull: { requestingFollowing: AuthenticateDetail?._id },
+        });
+      });
+
       return res.send({ message: "Set as Public" });
     } else {
       return res.send({ message: "Already Public" });
