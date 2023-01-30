@@ -62,7 +62,7 @@ const main = async (req: any, res: any) => {
           });
         }
 
-        return res.send({ message: "Follow Requested" });
+        return res.send({ message: "Requested" });
       } else {
         await DbModels?.user.findByIdAndUpdate(user2Data._id, {
           $addToSet: { followings: user1Data._id },
