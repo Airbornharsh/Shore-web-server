@@ -22,6 +22,7 @@ const main = async (req: any, res: any) => {
       joinedDate: userData.joinedDate,
       phoneNumber: userData.phoneNumber,
       gender: userData.gender,
+      isPrivate: userData.isPrivate,
       posts: userData.posts,
       followers: userData.followers,
       followings: userData.followings,
