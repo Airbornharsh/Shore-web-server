@@ -20,73 +20,56 @@ const main = async (req: any, res: any) => {
       (await DbModels?.user.findById(AuthenticateDetail?._id)) || [];
 
     if (
-      user2Data.followings.includes(body.userId) &&
-      user1Data.followers.includes(AuthenticateDetail?._id)
+      user2Data.followings.includes(user1Data._id) &&
+      user1Data.followers.includes(user2Data._id)
     ) {
       return res.send({ message: "Already Followed" });
     } else {
       if (user1Data.isPrivate) {
         if (
-          user1Data.acceptedFollowerRequests.includes(body.userId) ||
-          user1Data.declinedFollowerRequests.includes(body.userId)
+          user1Data.acceptedFollowerRequests.includes(user1Data._id) ||
+          user1Data.declinedFollowerRequests.includes(user1Data._id)
         ) {
-          await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
+          await DbModels?.user.findByIdAndUpdate(user2Data._id, {
             $pull: {
-              acceptedFollowerRequests: body.userId,
-              declinedFollowerRequests: body.userId,
+              acceptedFollowingRequests: user1Data._id,
+              declinedFollowingRequests: user1Data._id,
             },
           });
+        }
 
-          if (!user2Data.requestingFollowing.includes(body.userId)) {
-            await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
-              $addToSet: { requestingFollowers: body.userId },
-            });
-          }
-        } else {
-          if (!user2Data.requestingFollowing.includes(body.userId)) {
-            await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
-              $addToSet: { requestingFollowers: body.userId },
-            });
-          }
+        if (!user2Data.requestingFollowing.includes(user1Data._id)) {
+          await DbModels?.user.findByIdAndUpdate(user2Data._id, {
+            $addToSet: { requestingFollowing: user1Data._id },
+          });
         }
 
         if (
-          user2Data.acceptedFollowingRequests.includes(
-            AuthenticateDetail?._Id
-          ) ||
-          user2Data.declinedFollowingRequests.includes(AuthenticateDetail?._id)
+          user2Data.acceptedFollowingRequests.includes(user2Data._id) ||
+          user2Data.declinedFollowingRequests.includes(user2Data._id)
         ) {
-          await DbModels?.user.findByIdAndUpdate(body.userId, {
+          await DbModels?.user.findByIdAndUpdate(user1Data._id, {
             $pull: {
-              acceptedFollowerRequests: AuthenticateDetail?._id,
-              declinedFollowerRequests: AuthenticateDetail?._id,
+              acceptedFollowerRequests: user2Data._id,
+              declinedFollowerRequests: user2Data._id,
             },
           });
-
-          if (
-            !user1Data.requestingFollowing.includes(AuthenticateDetail?._id)
-          ) {
-            await DbModels?.user.findByIdAndUpdate(body.userId, {
-              $addToSet: { requestingFollowing: AuthenticateDetail?._id },
-            });
-          }
-        } else {
-          if (
-            !user1Data.requestingFollowing.includes(AuthenticateDetail?._id)
-          ) {
-            await DbModels?.user.findByIdAndUpdate(body.userId, {
-              $addToSet: { requestingFollowing: AuthenticateDetail?._id },
-            });
-          }
         }
+
+        if (!user1Data.requestingFollowing.includes(user2Data._id)) {
+          await DbModels?.user.findByIdAndUpdate(user1Data._id, {
+            $addToSet: { requestingFollowers: user2Data._id },
+          });
+        }
+
         return res.send({ message: "Follow Requested" });
       } else {
-        await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
-          $addToSet: { followings: body.userId },
+        await DbModels?.user.findByIdAndUpdate(user2Data._id, {
+          $addToSet: { followings: user1Data._id },
         });
 
-        await DbModels?.user.findByIdAndUpdate(body.userId, {
-          $addToSet: { followers: AuthenticateDetail?._id },
+        await DbModels?.user.findByIdAndUpdate(user1Data._id, {
+          $addToSet: { followers: user2Data._id },
         });
 
         return res.send({ message: "Followed" });
