@@ -12,9 +12,9 @@ const main = async (req: any, res: any) => {
 
     const postData = await DbModels?.post
       .find()
-      .sort({ $natural: -1 })
+      .skip((page - 1) * limit)
       .limit(limit)
-      .skip((page - 1) * limit);
+      .sort({ $natural: -1 });
 
     const postsUserIds: any[] = [];
 
