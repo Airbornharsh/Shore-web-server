@@ -2,7 +2,8 @@ import { DbConnect1 } from "../../../Server/config/Db_Config";
 
 const main = async (req: any, res: any) => {
   try {
-    const body = req.body;
+    const body = JSON.parse(req.body);
+    // const body = req.body;
 
     const DbModels = await DbConnect1();
 
