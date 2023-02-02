@@ -22,11 +22,9 @@ const main = async (req: any, res: any) => {
       postsUserIds.push(post.userId);
     });
 
-    const userDatas = await DbModels?.user
-      .find({
-        _id: postsUserIds,
-      })
-      .limit(2);
+    const userDatas = await DbModels?.user.find({
+      _id: postsUserIds,
+    });
 
     const newPostData: {
       _id: any;
@@ -34,6 +32,8 @@ const main = async (req: any, res: any) => {
       description: any;
       url: any;
       profileUrl: any;
+      profileName: any;
+      profileUserName: any;
       postedDate: any;
       likes: any;
       comments: any;
