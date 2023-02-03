@@ -7,7 +7,7 @@ const main = async (req: any, res: any) => {
 
     const DbModels = await DbConnect1();
 
-    const page = body.page ? body.page : 1;
+    const page = body.page ? body.page : 1; 
     const limit = body.limit ? body.limit : 20;
 
     const postData = await DbModels?.post

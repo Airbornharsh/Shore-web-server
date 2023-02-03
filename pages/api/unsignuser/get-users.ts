@@ -13,8 +13,8 @@ const main = async (req: any, res: any) => {
 
     const userDatas = await DbModels?.user
       .find({ userName: { $regex: body.userName } })
-      .limit(limit)
-      .skip((page - 1) * limit);
+      .skip((page - 1) * limit)
+      .limit(limit);
 
     const newUserDatas: {
       id: any;
