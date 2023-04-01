@@ -42,6 +42,7 @@ const userSchema = new Schema({
     required: true,
     default: false,
   },
+  deviceTokens: [{ type: String, default: [] }],
   chats: [{ type: Schema.Types.ObjectId, default: [] }],
   posts: [{ type: Schema.Types.ObjectId, ref: "Post", default: [] }],
   followers: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],

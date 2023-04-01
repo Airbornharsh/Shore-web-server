@@ -32,6 +32,7 @@ const main = async (req: any, res: any) => {
       phoneNumber: req.body.phoneNumber,
       name: req.body.name.trim(),
       password: hashPassword,
+      deviceTokens: [req.body.deviceToken],
     });
 
     const data = await newUser.save();

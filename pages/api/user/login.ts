@@ -22,8 +22,6 @@ const main = async (req: any, res: any) => {
         emailId: req.body.emailId.trim(),
       });
 
-      console.log(tempUser);
-
       if (!tempUser) {
         return res
           .status(400)
@@ -53,12 +51,28 @@ const main = async (req: any, res: any) => {
       return res.status(401).send({ message: "Wrong Password" });
     }
 
-    const authUser = {
-      userName: tempUser.userName,
-      emailId: tempUser.emailId,
-      phoneNumber: tempUser.phoneNumber,
-      _id: tempUser._id,
-    };
+    let authUser;
+
+    if (tempUser.devviceTokens.includes(req.body.deviceToken)) {
+      authUser = {
+        userName: tempUser.userName,
+        emailId: tempUser.emailId,
+        phoneNumber: tempUser.phoneNumber,
+        deviceTokens: tempUser.deviceTokens,
+        _id: tempUser._id,
+      };
+    } else {
+      await DbModels?.user.findByIdAndUpdate(tempUser?._id, {
+        $push: { deviceTokens: req.body.deviceToken },
+      });
+      authUser = {
+        userName: tempUser.userName,
+        emailId: tempUser.emailId,
+        phoneNumber: tempUser.phoneNumber,
+        deviceTokens: [...tempUser.deviceTokens, req.body.deviceToken],
+        _id: tempUser._id,
+      };
+    }
 
     const accessToken = sign(authUser, process.env.JWT_SECRET as Secret);
 
