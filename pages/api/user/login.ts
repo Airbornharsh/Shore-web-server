@@ -53,7 +53,7 @@ const main = async (req: any, res: any) => {
 
     let authUser;
 
-    if (tempUser.devviceTokens.includes(req.body.deviceToken)) {
+    if (tempUser.deviceTokens.includes(req.body.deviceToken)) {
       authUser = {
         userName: tempUser.userName,
         emailId: tempUser.emailId,
