@@ -16,7 +16,10 @@ const Authenticate = async (req: any, res: any) => {
       }
     );
 
-    if (tempErr) return res.status(402).send({ message: "Not Authorized" });
+    if (tempErr)
+      return res
+        .status(402)
+        .send({ message: "Not Authorized", isValid: false });
 
     return {
       emailId: tempUser.emailId,
