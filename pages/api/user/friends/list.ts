@@ -15,7 +15,7 @@ const main = async (req: any, res: any) => {
       var common = []; // Array to contain common elements
       for (var i = 0; i < arr1.length; ++i) {
         for (var j = 0; j < arr2.length; ++j) {
-          if (arr1[i] == arr2[j]) {
+          if (arr1[i].toString() == arr2[j].toString()) {
             // If element is in both the arrays
             common.push(arr1[i]); // Push to common array
           }
@@ -25,7 +25,7 @@ const main = async (req: any, res: any) => {
       return common; // Return the common elements
     };
 
-    const friends = getCommon(followings, followers);
+    const friends = await getCommon(followings, followers);
 
     const userDatas = await DbModels?.user
       .find({
