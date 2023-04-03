@@ -42,6 +42,7 @@ const main = async (req: any, res: any) => {
       phoneNumber: any;
       gender: any;
       isPrivate: any;
+      socketIds: any;
       posts: any;
       followers: any;
       followings: any;
@@ -56,6 +57,7 @@ const main = async (req: any, res: any) => {
         joinedDate: user.joinedDate,
         phoneNumber: user.phoneNumber,
         gender: user.gender,
+        socketIds: user.socketIds,
         isPrivate: user.isPrivate,
         posts: user.posts,
         followers: user.followers,
