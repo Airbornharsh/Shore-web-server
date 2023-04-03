@@ -9,9 +9,13 @@ const main = async (req: any, res: any) => {
 
     const userData = await DbModels?.user.findById(AuthenticateDetail?._id);
 
-    res.send({ isValid: true });
+    if (!userData) {
+      return res.status(400).send({ isValid: false, user: null });
+    }
+
+    res.send({ isValid: true, user: userData });
   } catch (e: any) {
-    res.status(500).send(e.message);
+    res.status(500).send({ message: e.message, isValid: false, user: null });
   }
 };
 
