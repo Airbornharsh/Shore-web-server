@@ -4,8 +4,8 @@ import Authenticate from "../../../../Server/middlewares/Authenticate";
 
 const main = async (req: any, res: any) => {
   try {
-    const body = JSON.parse(req.body);
-    // const body = req.body;
+    // const body = JSON.parse(req.body);
+    const body = req.body;
 
     if (!(body.message && body.recieverUserId)) {
       return res.status(406).send({ message: "No Data Given" });
@@ -46,9 +46,9 @@ const main = async (req: any, res: any) => {
         body: body.message,
       },
       data: {
-        title: AuthenticateDetail?.userName.toString(),
         senderUserId: AuthenticateDetail._id.toString(),
-        body: body.message,
+        time: Date.now().toString(),
+        message: body.message.toString(),
       },
     };
 

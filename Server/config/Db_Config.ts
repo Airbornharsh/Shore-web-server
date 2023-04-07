@@ -2,6 +2,7 @@ import mongoose, { mongo } from "mongoose";
 import user from "../models/user";
 import comment from "../models/comment";
 import post from "../models/post";
+import message from "../models/message";
 
 const Db_Uri = process.env.DB_URI1;
 const Db_Post_Uri1 = process.env.DB_POST_URI1;
@@ -18,6 +19,7 @@ export const DbConnect1 = async () => {
       user,
       post,
       comment,
+      message,
     };
   } catch (e) {
     console.log(e);
@@ -41,7 +43,7 @@ export const DbConnect1 = async () => {
 //     //     bucketName: "postfile",
 //     //   });
 //     // });
- 
+
 //     conn.once("open", () => {
 //       console.log("Start");
 //       gfs = Grid(conn.db, mongo);
