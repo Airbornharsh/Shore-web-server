@@ -25,6 +25,7 @@
     "eslint": "8.30.0",
     "eslint-config-next": "13.1.1",
     "gridfs-stream": "^1.1.1",
+    "firebase-admin": "^11.5.0",
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^4.13.0",
     "mongoose": "^6.8.2",
