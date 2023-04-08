@@ -1,7 +1,8 @@
 const admin = require("firebase-admin");
 const fcm = require("fcm-notification");
+// import fcm from "fcm-notification";
 
-let FCM: any;
+let FCM;
 let fcmValid = false;
 
 const setFirebase = async () => {
@@ -25,8 +26,8 @@ const setFirebase = async () => {
       client_x509_cert_url: process.env.FIREBASE_CLIENT_X509_CERT_URL,
     };
 
-    serviceAccount.private_key = serviceAccount
-      .private_key!.split(String.raw`\n`)
+    serviceAccount.private_key = serviceAccount.private_key
+      .split(String.raw`\n`)
       .join("\n");
 
     const certPath = await admin.credential.cert(serviceAccount);

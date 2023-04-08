@@ -7,7 +7,7 @@ const main = async (req: any, res: any) => {
     // const body = JSON.parse(req.body);
     const body = req.body;
 
-    if (!(body.message && body.recieverUserId)) {
+    if (!(body.message && body.recieverUserId && body.currentTime)) {
       return res.status(406).send({ message: "No Data Given" });
     }
 
@@ -38,6 +38,7 @@ const main = async (req: any, res: any) => {
     const tempDeviceTokens = recieverUserData.deviceTokens;
 
     // recieverUserData.deviceTokens.forEach(async (token: any) => {
+
     const message = {
       // to: token,
       // token,
@@ -47,10 +48,19 @@ const main = async (req: any, res: any) => {
       },
       data: {
         senderUserId: AuthenticateDetail._id.toString(),
-        time: Date.now().toString(),
+        time: body.currentTime,
         message: body.message.toString(),
       },
     };
+
+    const newMessage = new DbModels!.message({
+      from: AuthenticateDetail?._id,
+      message: body.message.toString(),
+      to: body.recieverUserId.toString(),
+      time: body.currentTime,
+    });
+
+    const data = await newMessage.save();
 
     FCM.sendToMultipleToken(
       message,
