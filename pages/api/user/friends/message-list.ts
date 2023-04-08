@@ -63,6 +63,16 @@ const main = async (req: any, res: any) => {
       }
     });
 
+    const messageDataKeys = Array.from(MessageData.keys());
+
+    for (let i = 0; i < messageDataKeys.length; i++) {
+      const temp = MessageData.get(messageDataKeys[i]);
+
+      temp.sort((a: { time: string }, b: { time: string }) => {
+        return parseInt(a.time) - parseInt(b.time);
+      });
+    }
+
     const newUserDatas: {
       id: any;
       userName: any;
