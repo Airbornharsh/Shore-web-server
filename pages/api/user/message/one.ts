@@ -53,15 +53,6 @@ const main = async (req: any, res: any) => {
       },
     };
 
-    const newMessage = new DbModels!.message({
-      from: AuthenticateDetail?._id,
-      message: body.message.toString(),
-      to: body.recieverUserId.toString(),
-      time: body.currentTime,
-    });
-
-    const data = await newMessage.save();
-
     FCM.sendToMultipleToken(
       message,
       tempDeviceTokens,
@@ -73,7 +64,15 @@ const main = async (req: any, res: any) => {
         }
       }
     );
-    // });
+
+    const newMessage = new DbModels!.message({
+      from: AuthenticateDetail?._id,
+      message: body.message.toString(),
+      to: body.recieverUserId.toString(),
+      time: body.currentTime,
+    });
+
+    const data = await newMessage.save();  
 
     return res.send({ message: "Message Sent" });
   } catch (e: any) {
