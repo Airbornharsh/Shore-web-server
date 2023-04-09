@@ -63,7 +63,7 @@ const main = async (req: any, res: any) => {
       };
     } else {
       await DbModels?.user.findByIdAndUpdate(tempUser?._id, {
-        $push: { deviceTokens: req.body.deviceToken },
+        $addToSet: { deviceTokens: req.body.deviceToken },
       });
       authUser = {
         userName: tempUser.userName,
