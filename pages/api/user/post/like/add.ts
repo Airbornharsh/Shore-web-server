@@ -25,11 +25,11 @@ const main = async (req: any, res: any) => {
       return res.send({ message: "Already Liked" });
     } else {
       await DbModels?.post.findByIdAndUpdate(body.postId, {
-        $push: { likes: AuthenticateDetail?._id },
+        $addToSet: { likes: AuthenticateDetail?._id },
       });
 
       await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
-        $push: { postLiked: body.postId },
+        $addToSet: { postLiked: body.postId },
       });
 
       return res.send({ message: "Liked" });

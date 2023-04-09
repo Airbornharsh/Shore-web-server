@@ -22,7 +22,7 @@ const main = async (req: any, res: any) => {
         return res.send({ message: "Already Added" });
       } else {
         await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
-          $push: { closeFriends: body.userId },
+          $addToSet: { closeFriends: body.userId },
         });
 
         return res.send({ message: "Added" });

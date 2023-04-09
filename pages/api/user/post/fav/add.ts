@@ -20,7 +20,7 @@ const main = async (req: any, res: any) => {
       return res.send({ message: "Already Added" });
     } else {
       await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
-        $push: { fav: body.postId },
+        $addToSet: { fav: body.postId },
       });
 
       return res.send({ message: "Added" });
