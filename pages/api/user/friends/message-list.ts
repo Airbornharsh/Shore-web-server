@@ -44,22 +44,22 @@ const main = async (req: any, res: any) => {
     const MessageData = new Map();
 
     FromMessages?.forEach((FromMessage) => {
-      if (MessageData.has(FromMessage.to.toString())) {
-        const tempMessage = MessageData.get(FromMessage.to.toString());
+      if (MessageData.has(FromMessage.to?.toString())) {
+        const tempMessage = MessageData.get(FromMessage.to?.toString());
         tempMessage?.push(FromMessage);
-        MessageData.set(FromMessage.to.toString(), tempMessage);
+        MessageData.set(FromMessage.to?.toString(), tempMessage);
       } else {
-        MessageData.set(FromMessage.to.toString(), [FromMessage]);
+        MessageData.set(FromMessage.to?.toString(), [FromMessage]);
       }
     });
 
     ToMessages?.forEach((ToMessage) => {
-      if (MessageData.has(ToMessage.from.toString())) {
-        const tempMessage = MessageData.get(ToMessage.from.toString());
+      if (MessageData.has(ToMessage.from?.toString())) {
+        const tempMessage = MessageData.get(ToMessage.from?.toString());
         tempMessage?.push(ToMessage);
-        MessageData.set(ToMessage.from.toString(), tempMessage);
+        MessageData.set(ToMessage.from?.toString(), tempMessage);
       } else {
-        MessageData.set(ToMessage.form.toString(), [ToMessage]);
+        MessageData.set(ToMessage.form?.toString(), [ToMessage]);
       }
     });
 
@@ -115,6 +115,7 @@ const main = async (req: any, res: any) => {
 
     res.send(newUserDatas);
   } catch (e: any) {
+    console.log(e);
     res.status(500).send(e.message);
   }
 };
