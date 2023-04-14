@@ -14,8 +14,16 @@ const messageSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Post",
     required: true,
-  },  
+  },
   time: {
+    type: String,
+    required: true,
+  },
+  read: {
+    type: Boolean,
+    default: false,
+  },
+  type: {
     type: String,
     required: true,
   },
