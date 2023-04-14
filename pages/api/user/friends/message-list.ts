@@ -77,7 +77,7 @@ const main = async (req: any, res: any) => {
       id: any;
       userName: any;
       name: any;
-     imgUrl: any;
+      imgUrl: any;
       joinedDate: any;
       emailId: any;
       phoneNumberFirebaseId: any;
@@ -97,7 +97,7 @@ const main = async (req: any, res: any) => {
         id: user._id,
         userName: user.userName,
         name: user.name,
-      imgUrl: user.imgUrl,
+        imgUrl: user.imgUrl,
         joinedDate: user.joinedDate,
         emailId: user.emailId,
         phoneNumberFirebaseId: user.phoneNumberFirebaseId,
@@ -109,7 +109,7 @@ const main = async (req: any, res: any) => {
         posts: user.posts,
         followers: user.followers,
         followings: user.followings,
-        messages: MessageData.get(user._id.toString()),
+        messages: MessageData.get(user._id.toString()) ?? [],
       });
     });
 
