@@ -21,8 +21,11 @@ const main = async (req: any, res: any) => {
       id: any;
       userName: any;
       name: any;
-      imgUrl: any;
+     imgUrl: any;
       joinedDate: any;
+      emailId: any;
+      phoneNumberFirebaseId: any;
+      emailIdFirebaseId: any;
       phoneNumber: any;
       gender: any;
       socketIds: any;
@@ -37,8 +40,11 @@ const main = async (req: any, res: any) => {
         id: user._id,
         userName: user.userName,
         name: user.name,
-        imgUrl: user.imgUrl,
+      imgUrl: user.imgUrl,
         joinedDate: user.joinedDate,
+        emailId: user.emailId,
+        phoneNumberFirebaseId: user.phoneNumberFirebaseId,
+        emailIdFirebaseId: user.emailIdFirebaseId,
         phoneNumber: user.phoneNumber,
         gender: user.gender,
         socketIds: user.socketIds,

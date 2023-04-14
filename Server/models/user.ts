@@ -6,6 +6,14 @@ const userSchema = new Schema({
     unique: true,
     required: true,
   },
+  emailIdFirebaseId: {
+    type: String,
+    unique: true,
+  },
+  phoneNumberFirebaseId: {
+    type: String,
+    unique: true,
+  },
   gender: {
     type: String,
     default: "",

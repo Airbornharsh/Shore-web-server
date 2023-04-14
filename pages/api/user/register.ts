@@ -33,6 +33,8 @@ const main = async (req: any, res: any) => {
       name: req.body.name.trim(),
       password: hashPassword,
       deviceTokens: [req.body.deviceToken],
+      emailIdFirebaseId: req.body.emailIdFirebaseId,
+      phoneNumberFirebaseId: req.body.phoneNumberFirebaseId,
     });
 
     const data = await newUser.save();
