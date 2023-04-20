@@ -50,7 +50,7 @@ const main = async (req: any, res: any) => {
         senderUserId: AuthenticateDetail._id.toString(),
         time: body.currentTime,
         message: body.message.toString(),
-        type: body.type ? body.type : "text",
+        type: body.type ? body.type.trim() : "text",
       },
     };
 
@@ -71,14 +71,14 @@ const main = async (req: any, res: any) => {
       message: body.message.toString(),
       to: body.recieverUserId.toString(),
       time: body.currentTime,
-      type: body.type ? body.type : "text",
+      type: body.type ? body.type.trim() : "text",
     });
 
     const data = await newMessage.save();
 
     return res.send({ message: "Message Sent" });
   } catch (e: any) {
-    res.status(500).send(e.message);
+    return res.status(500).send(e.message);
   }
 };
 
