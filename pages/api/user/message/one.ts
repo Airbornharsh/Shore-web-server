@@ -57,12 +57,12 @@ const main = async (req: any, res: any) => {
       // to: token,
       // token,
       notification: {
-        title: AuthenticateDetail?.userName,
-        body: body.message,
+        title: AuthenticateDetail?.userName.toString(),
+        body: body.message.toString(),
       },
       data: {
         senderUserId: AuthenticateDetail._id.toString(),
-        time: body.currentTime,
+        time: body.currentTime.toString(),
         message: body.message.toString(),
         type: body.type ? body.type.trim() : "text",
       },
