@@ -3,7 +3,6 @@ import Authenticate from "../../../../Server/middlewares/Authenticate";
 
 const main = async (req: any, res: any) => {
   try {
-
     const DbModels = await DbConnect1();
 
     const AuthenticateDetail = await Authenticate(req, res);
@@ -20,7 +19,7 @@ const main = async (req: any, res: any) => {
       id: any;
       userName: any;
       name: any;
-     imgUrl: any;
+      imgUrl: any;
       joinedDate: any;
       emailId: any;
       phoneNumberFirebaseId: any;
@@ -40,7 +39,7 @@ const main = async (req: any, res: any) => {
         id: user._id,
         userName: user.userName,
         name: user.name,
-      imgUrl: user.imgUrl,
+        imgUrl: user.imgUrl,
         joinedDate: user.joinedDate,
         emailId: user.emailId,
         phoneNumberFirebaseId: user.phoneNumberFirebaseId,
@@ -48,6 +47,7 @@ const main = async (req: any, res: any) => {
         phoneNumber: user.phoneNumber,
         gender: user.gender,
         socketIds: user.socketIds,
+        deviceTokens: user.deviceTokens ? user.deviceTokens : [],
         posts: user.posts,
         isPrivate: user.isPrivate,
         followers: user.followers,
