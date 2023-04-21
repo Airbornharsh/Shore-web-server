@@ -89,7 +89,7 @@ const main = async (req: any, res: any) => {
       from: AuthenticateDetail?._id,
       message: body.message.toString(),
       to: body.recieverUserId.toString(),
-      time: body.currentTime,
+      time: body.currentTime.toString(),
       type: body.type ? body.type.trim() : "text",
     });
 
