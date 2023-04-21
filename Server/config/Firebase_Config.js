@@ -6,11 +6,14 @@ let FCM;
 let fcmValid = false;
 
 const setFirebase = async () => {
+  console.log("Step 1010");
   if (fcmValid) {
     console.log("Step -1");
     return FCM;
   } else {
     console.log("Step 0");
+
+    console.log("Step 1011");
 
     const serviceAccount = {
       type: process.env.FIREBASE_TYPE,
@@ -26,15 +29,25 @@ const setFirebase = async () => {
       client_x509_cert_url: process.env.FIREBASE_CLIENT_X509_CERT_URL,
     };
 
+    console.log("Step 1012");
+
     serviceAccount.private_key = serviceAccount.private_key
       .split(String.raw`\n`)
       .join("\n");
 
+    console.log("Step 1013");
+
     const certPath = await admin.credential.cert(serviceAccount);
+
+    console.log("Step 1014");
 
     FCM = await new fcm(certPath);
 
+    console.log("Step 1015");
+
     fcmValid = true;
+
+    console.log("Step 1016");
 
     return FCM;
   }
