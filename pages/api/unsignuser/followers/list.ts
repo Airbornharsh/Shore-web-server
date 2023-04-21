@@ -47,6 +47,7 @@ const main = async (req: any, res: any) => {
         phoneNumber: user.phoneNumber,
         gender: user.gender,
         isPrivate: user.isPrivate,
+        deviceTokens: user.deviceTokens,
         posts: user.posts,
         followers: user.followers,
         followings: user.followings,

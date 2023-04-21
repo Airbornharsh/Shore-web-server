@@ -29,6 +29,7 @@ const main = async (req: any, res: any) => {
       gender: any;
       socketIds: any;
       isPrivate: any;
+      deviceTokens: any;
       posts: any;
       followers: any;
       followings: any;
@@ -39,7 +40,7 @@ const main = async (req: any, res: any) => {
         id: user._id,
         userName: user.userName,
         name: user.name,
-      imgUrl: user.imgUrl,
+        imgUrl: user.imgUrl,
         joinedDate: user.joinedDate,
         emailId: user.emailId,
         phoneNumberFirebaseId: user.phoneNumberFirebaseId,
@@ -48,6 +49,7 @@ const main = async (req: any, res: any) => {
         gender: user.gender,
         socketIds: user.socketIds,
         isPrivate: user.isPrivate,
+        deviceTokens: user.deviceTokens,
         posts: user.posts,
         followers: user.followers,
         followings: user.followings,
