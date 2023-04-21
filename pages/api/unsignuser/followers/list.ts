@@ -29,6 +29,7 @@ const main = async (req: any, res: any) => {
       phoneNumber: any;
       isPrivate: any;
       gender: any;
+      deviceTokens: any;
       posts: any;
       followers: any;
       followings: any;
