@@ -50,7 +50,7 @@ const main = async (req: any, res: any) => {
         gender: user.gender,
         socketIds: user.socketIds,
         isPrivate: user.isPrivate,
-        deviceTokens: user.deviceTokens,
+        deviceTokens: user.deviceTokens ? user.deviceTokens : [],
         posts: user.posts,
         followers: user.followers,
         followings: user.followings,
