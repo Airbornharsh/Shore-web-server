@@ -26,7 +26,6 @@ const main = async (req: any, res: any) => {
       description: body.description,
       to: toUserId,
       reply: body.reply ? body.reply : "",
-      userId: AuthenticateDetail?._id,
       postId: body.postId,
       time: Date.now(),
     });
