@@ -28,6 +28,7 @@ const main = async (req: any, res: any) => {
       reply: body.reply ? body.reply : "",
       userId: AuthenticateDetail?._id,
       postId: body.postId,
+      time: Date.now(),
     });
 
     const commentData = await newComment.save();
