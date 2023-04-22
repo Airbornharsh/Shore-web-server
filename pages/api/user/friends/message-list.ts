@@ -35,10 +35,12 @@ const main = async (req: any, res: any) => {
 
     const FromMessages = await DbModels?.message.find({
       from: AuthenticateDetail?._id,
+      read: true,
     });
 
     const ToMessages = await DbModels?.message.find({
       to: AuthenticateDetail?._id,
+      read: true,
     });
 
     const MessageData = new Map();
