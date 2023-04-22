@@ -20,7 +20,8 @@ const main = async (req: any, res: any) => {
 
     return commentData;
   } catch (e: any) {
-    res.status(500).send(e.message);
+    console.log(e);
+    return res.status(500).send(e.message);
   }
 };
 
