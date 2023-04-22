@@ -14,15 +14,60 @@ const main = async (req: any, res: any) => {
 
     const AuthenticateDetail = await Authenticate(req, res);
 
-    const commentData = await DbModels?.comment.find({
+    const commentDatas = await DbModels?.comment.find({
       postId: body.postId,
     });
 
-    return res.send(commentData);
+    const userIds = commentDatas?.map((com) => com.commented);
+
+    const userDatas = await DbModels?.user
+      .find({
+        _id: userIds,
+      })
+      .select("_id userName name imgUrl");
+
+    return res.send(await userCommentData(commentDatas ?? [], userDatas ?? []));
   } catch (e: any) {
     console.log(e);
     return res.status(500).send(e.message);
   }
+};
+
+const userCommentData = async (
+  commentDatas: Array<any>,
+  userDatas: Array<any>
+) => {
+  const datas: {
+    _id: any;
+    commented: any;
+    description: any;
+    to: any;
+    reply: any;
+    postId: any;
+    likes: any;
+    time: any;
+    user: any;
+  }[] = [];
+
+  await commentDatas.forEach(async (commentData) => {
+    const user = userDatas.find(
+      (userData) =>
+        userData["_id"].toString() == commentData["commented"].toString()
+    );
+
+    await datas.push({
+      _id: commentData["_id"],
+      commented: commentData["commented"],
+      description: commentData["description"],
+      to: commentData["to"],
+      reply: commentData["reply"],
+      postId: commentData["postId"],
+      likes: commentData["likes"],
+      time: commentData["time"],
+      user: user,
+    });
+  });
+  return datas;
 };
 
 export default main;
