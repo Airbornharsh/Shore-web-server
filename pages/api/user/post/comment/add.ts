@@ -25,6 +25,7 @@ const main = async (req: any, res: any) => {
       commented: AuthenticateDetail?._id,
       description: body.description,
       to: toUserId,
+      reply: body.reply ? body.reply : "",
       userId: AuthenticateDetail?._id,
       postId: body.postId,
     });
@@ -32,16 +33,16 @@ const main = async (req: any, res: any) => {
     const commentData = await newComment.save();
 
     await DbModels?.post.findByIdAndUpdate(body.postId, {
-      $push: { comments: commentData._id },
+      $addToSet: { comments: commentData._id },
     });
 
     await DbModels?.user.findByIdAndUpdate(AuthenticateDetail?._id, {
-      $push: { commented: commentData._id },
+      $addToSet: { commented: commentData._id },
     });
 
-    res.send(commentData);
+    return res.send(commentData);
   } catch (e: any) {
-    res.status(500).send(e.message);
+    return res.status(500).send({ message: e.message });
   }
 };
 
