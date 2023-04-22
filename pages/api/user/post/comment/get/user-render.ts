@@ -4,7 +4,7 @@ import Authenticate from "../../../../../../Server/middlewares/Authenticate";
 
 const main = async (req: any, res: any) => {
   try {
-    const body = JSON.parse(req.body);
+    const body = req.body;
 
     if (!body.postId) {
       return res.status(406).send({ message: "Post Id Missing" });
@@ -14,57 +14,92 @@ const main = async (req: any, res: any) => {
 
     const AuthenticateDetail = await Authenticate(req, res);
 
-    const userData = await DbModels?.user.findById(AuthenticateDetail?._id);
+    // if (commentIds) {
+    //   // var commentObjectIds = commentIds.map((id: any) => new ObjectId(id));
 
-    const commentIds = userData?.commented;
+    //   // const commentData = await DbModels?.comment.find({
+    //   //   _id: commentObjectIds,
+    //   // });
 
-    if (commentIds) {
-      var commentObjectIds = commentIds.map((id: any) => new ObjectId(id));
+    //   const postCommentData: { post: any; comment: any }[] = [];
 
-      const commentData = await DbModels?.comment.find({
-        _id: commentObjectIds,
-      });
+    //   const postIds: any[] = [];
 
-      const postCommentData: { post: any; comment: any }[] = [];
+    //   commentData?.forEach((com) => {
+    //     postIds.push(com.postId);
+    //   });
+    //   var postObjectIds = postIds.map((id: any) => new ObjectId(id));
 
-      const postIds: any[] = [];
+    //   const postData = await DbModels?.post.find({
+    //     _id: postObjectIds,
+    //   });
 
-      commentData?.forEach((com) => {
-        postIds.push(com.postId);
-      });
-      var postObjectIds = postIds.map((id: any) => new ObjectId(id));
+    //   commentData?.forEach((com) => {
+    //     postData?.forEach((pos) => {
+    //       if (pos._id.toString().trim() === com.postId.toString().trim()) {
+    //         postCommentData.push({
+    //           post: pos,
+    //           comment: com,
+    //         });
+    //       }
+    //     });
+    //   });
 
-      const postData = await DbModels?.post.find({
-        _id: postObjectIds,
-      });
+    //   postData?.forEach((pos) => {
+    //     const tempPost = pos;
+    //     const comments: any[] = [];
+    //     commentData?.forEach((com) => {
+    //       if (pos.comments.includes(com._id)) comments.push(com);
+    //     });
+    //     tempPost.comments = comments;
+    //     postCommentData.push(tempPost);
+    //   });
 
-      //   commentData?.forEach((com) => {
-      //     postData?.forEach((pos) => {
-      //       if (pos._id.toString().trim() === com.postId.toString().trim()) {
-      //         postCommentData.push({
-      //           post: pos,
-      //           comment: com,
-      //         });
-      //       }
-      //     });
-      //   });
+    //   return res.send(postCommentData);
+    // } else {
+    //   return res.send([]);
+    // }
 
+    const commentData = await DbModels?.comment.find({
+      postId: body.postId,
+    });
+
+    const postCommentData: { post: any; comment: any }[] = [];
+
+    const postIds: any[] = [];
+
+    commentData?.forEach((com) => {
+      postIds.push(new ObjectId(com.postId));
+    });
+
+    const postData = await DbModels?.post.find({
+      _id: postIds,
+    });
+
+    commentData?.forEach((com) => {
       postData?.forEach((pos) => {
-        const tempPost = pos;
-        const comments: any[] = [];
-        commentData?.forEach((com) => {
-          if (pos.comments.includes(com._id)) comments.push(com);
-        });
-        tempPost.comments = comments;
-        postCommentData.push(tempPost);
+        if (pos._id.toString().trim() === com.postId.toString().trim()) {
+          postCommentData.push({
+            post: pos,
+            comment: com,
+          });
+        }
       });
+    });
 
-      return res.send(postCommentData);
-    } else {
-      return res.send([]);
-    }
+    postData?.forEach((pos) => {
+      const tempPost = pos;
+      const comments: any[] = [];
+      commentData?.forEach((com) => {
+        if (pos.comments.includes(com._id)) comments.push(com);
+      });
+      tempPost.comments = comments;
+      postCommentData.push(tempPost);
+    });
+
+    return res.send(postCommentData);
   } catch (e: any) {
-    res.status(500).send(e.message);
+    return res.status(500).send(e.message);
   }
 };
 

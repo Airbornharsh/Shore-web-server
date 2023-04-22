@@ -3,7 +3,7 @@ import Authenticate from "../../../../../Server/middlewares/Authenticate";
 
 const main = async (req: any, res: any) => {
   try {
-    const body = JSON.parse(req.body);
+    const body = req.body;
 
     if (!body.postId) {
       return res.status(406).send({ message: "No Data Given" });

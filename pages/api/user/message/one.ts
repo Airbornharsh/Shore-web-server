@@ -4,7 +4,7 @@ import Authenticate from "../../../../Server/middlewares/Authenticate";
 
 const main = async (req: any, res: any) => {
   try {
-    // const body = JSON.parse(req.body);
+    // const body = req.body;
     const body = req.body;
 
     if (!(body.message && body.recieverUserId && body.currentTime)) {
