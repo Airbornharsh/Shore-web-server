@@ -18,7 +18,7 @@ const main = async (req: any, res: any) => {
       postId: body.postId,
     });
 
-    return commentData;
+    return res.send(commentData);
   } catch (e: any) {
     console.log(e);
     return res.status(500).send(e.message);
