@@ -25,7 +25,7 @@ const main = async (req: any, res: any) => {
       commented: AuthenticateDetail?._id,
       description: body.description,
       to: toUserId,
-      reply: body.reply ? body.reply : "",
+      reply: body.reply ? body.reply : null,
       postId: body.postId,
       time: Date.now(),
     });
