@@ -46,7 +46,9 @@ const userCommentData = async (
     postId: any;
     likes: any;
     time: any;
-    user: any;
+    name: any;
+    userName: any;
+    imgUrl: any;
   }[] = [];
 
   await commentDatas.forEach(async (commentData) => {
@@ -64,7 +66,9 @@ const userCommentData = async (
       postId: commentData["postId"],
       likes: commentData["likes"],
       time: commentData["time"],
-      user: user,
+      name: user["name"],
+      userName: user["userName"],
+      imgUrl: user["imgUrl"],
     });
   });
   return datas;
