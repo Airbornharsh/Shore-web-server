@@ -26,7 +26,14 @@ const main = async (req: any, res: any) => {
       })
       .select("_id userName name imgUrl");
 
-    return res.send(await userCommentData(commentDatas ?? [], userDatas ?? []));
+    let commenrUserData = await userCommentData(
+      commentDatas ?? [],
+      userDatas ?? []
+    );
+
+    commenrUserData = commenrUserData.reverse();
+
+    return res.send(commenrUserData);
   } catch (e: any) {
     console.log(e);
     return res.status(500).send(e.message);
