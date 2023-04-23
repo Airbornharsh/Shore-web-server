@@ -79,7 +79,7 @@ const main = async (req: any, res: any) => {
     return res.send({ message: "Message Sent" });
   } catch (e: any) {
     console.log(e);
-    return res.status(500).send(e.message);
+    return res.status(500).send({message: e.message});
   }
 };
 

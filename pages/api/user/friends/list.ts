@@ -75,7 +75,7 @@ const main = async (req: any, res: any) => {
 
     res.send(newUserDatas);
   } catch (e: any) {
-    res.status(500).send(e.message);
+    res.status(500).send({message: e.message});
   }
 };
 

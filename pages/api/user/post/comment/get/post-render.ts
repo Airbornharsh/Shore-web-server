@@ -14,9 +14,11 @@ const main = async (req: any, res: any) => {
 
     const AuthenticateDetail = await Authenticate(req, res);
 
-    const commentDatas = await DbModels?.comment.find({
-      postId: body.postId,
-    });
+    const commentDatas = await DbModels?.comment
+      .find({
+        postId: body.postId,
+      })
+      .sort({ $natural: -1 });
 
     const userIds = commentDatas?.map((com) => com.commented);
 
@@ -31,12 +33,10 @@ const main = async (req: any, res: any) => {
       userDatas ?? []
     );
 
-    commenrUserData = commenrUserData.reverse();
-
     return res.send(commenrUserData);
   } catch (e: any) {
     console.log(e);
-    return res.status(500).send(e.message);
+    return res.status(500).send({message: e.message});
   }
 };
 

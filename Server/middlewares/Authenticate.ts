@@ -29,7 +29,7 @@ const Authenticate = async (req: any, res: any) => {
       iat: tempUser.iat,
     };
   } catch (e: any) {
-    return res.status(500).send(e.message);
+    return res.status(500).send({message: e.message});
   }
 };
 

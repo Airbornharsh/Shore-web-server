@@ -30,7 +30,7 @@ const main = async (req: any, res: any) => {
       return res.send({ message: "Liked" });
     }
   } catch (e: any) {
-    res.status(500).send(e.message);
+    res.status(500).send({message: e.message});
   }
 };
 
