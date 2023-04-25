@@ -9,9 +9,9 @@ const main = async (req: any, res: any) => {
 
     const userData = await DbModels?.user.findById(AuthenticateDetail?._id);
 
-    res.send(userData);
+  return res.send(userData);
   } catch (e: any) {
-    res.status(500).send({message: e.message});
+  return res.status(500).send({message: e.message});
   }
 };
 

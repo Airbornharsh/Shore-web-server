@@ -6,7 +6,7 @@ const SocketHandler = async (req, res) => {
   } else {
     console.log("Socket is initializing");
     const io = new Server(res.socket.server);
-    res.socket.server.io = io;
+  return res.socket.server.io = io;
 
     io.on("connection", (socket) => {
       console.log("ok");

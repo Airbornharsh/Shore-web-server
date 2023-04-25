@@ -20,7 +20,7 @@ const main = async (req: any, res: any) => {
       return res.send({ message: "Set as Private" });
     }
   } catch (e: any) {
-    res.status(500).send({message: e.message});
+  return res.status(500).send({message: e.message});
   }
 };
 

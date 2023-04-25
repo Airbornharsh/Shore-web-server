@@ -26,7 +26,7 @@ const main = async (req: any, res: any) => {
       return res.send({ message: "Added" });
     }
   } catch (e: any) {
-    res.status(500).send({message: e.message});
+  return res.status(500).send({message: e.message});
   }
 };
 

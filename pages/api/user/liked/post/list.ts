@@ -61,12 +61,12 @@ const main = async (req: any, res: any) => {
         newPostData.push(temp);
       });
 
-      res.send(newPostData);
+    return res.send(newPostData);
     } else {
-      res.send([]);
+    return res.send([]);
     }
   } catch (e: any) {
-    res.status(500).send({ message: e.message });
+  return res.status(500).send({ message: e.message });
   }
 };
 

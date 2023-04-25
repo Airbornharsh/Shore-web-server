@@ -28,9 +28,9 @@ const main = async (req: any, res: any) => {
       followings: userData.followings,
     };
 
-    res.send(newUserData);
+  return res.send(newUserData);
   } catch (e: any) {
-    res.status(500).send({message: e.message});
+  return res.status(500).send({message: e.message});
   }
 };
 

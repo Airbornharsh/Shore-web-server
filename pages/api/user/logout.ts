@@ -12,10 +12,10 @@ const main = async (req: any, res: any) => {
       $pull: { deviceTokens: body.deviceToken },
     });
 
-    res.send({ message: "Logged Out" });
+  return res.send({ message: "Logged Out" });
   } catch (e: any) {
     console.log(e);
-    res.status(500).send({message: e.message});
+  return res.status(500).send({message: e.message});
   }
 };
 

@@ -44,7 +44,7 @@ const main = async (req: any, res: any) => {
     return res.send(data);
   } catch (e: any) {
     console.log(e);
-    res.status(500).send({message: e.message});
+  return res.status(500).send({message: e.message});
   }
 };
 

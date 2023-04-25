@@ -21,12 +21,12 @@ const main = async (req: any, res: any) => {
         })
         .sort({ $natural: -1 });
       
-      res.send(postData);
+    return res.send(postData);
     } else {
-      res.send([]);
+    return res.send([]);
     }
   } catch (e: any) {
-    res.status(500).send({message: e.message});
+  return res.status(500).send({message: e.message});
   }
 };
 

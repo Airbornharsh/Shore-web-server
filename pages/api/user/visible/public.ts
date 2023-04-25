@@ -31,7 +31,7 @@ const main = async (req: any, res: any) => {
       return res.send({ message: "Already Public" });
     }
   } catch (e: any) {
-    res.status(500).send({message: e.message});
+  return res.status(500).send({message: e.message});
   }
 };
 

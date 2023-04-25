@@ -30,7 +30,7 @@ const main = async (req: any, res: any) => {
       return res.status(402).send({ message: "Not Authorized" });
     }
   } catch (e: any) {
-    res.status(500).send({message: e.message});
+  return res.status(500).send({message: e.message});
   }
 };
 

@@ -21,9 +21,9 @@ const main = async (req: any, res: any) => {
       return res.status(400).send({ isValid: false, user: null });
     }
 
-    res.send({ isValid: true, user: userData });
+  return res.send({ isValid: true, user: userData });
   } catch (e: any) {
-    res.status(500).send({ message: e.message, isValid: false, user: null });
+  return res.status(500).send({ message: e.message, isValid: false, user: null });
   }
 };
 

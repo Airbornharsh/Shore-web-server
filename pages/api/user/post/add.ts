@@ -26,9 +26,9 @@ const main = async (req: any, res: any) => {
       $push: { posts: postData._id },
     });
 
-    res.send(postData);
+  return res.send(postData);
   } catch (e: any) {
-    res.status(500).send({message: e.message});
+  return res.status(500).send({message: e.message});
   }
 };
 
