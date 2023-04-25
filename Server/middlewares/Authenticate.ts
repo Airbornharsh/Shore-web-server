@@ -4,6 +4,11 @@ const Authenticate = async (req: any, res: any) => {
   try {
     const accessToken = req.headers["authorization"].split(" ")[1];
 
+    if (!accessToken)
+      return res
+        .status(402)
+        .send({ message: "Not Authorized", isValid: false });
+
     let tempErr: any;
     let tempUser: any;
 
@@ -29,7 +34,7 @@ const Authenticate = async (req: any, res: any) => {
       iat: tempUser.iat,
     };
   } catch (e: any) {
-    return res.status(500).send({message: e.message});
+    return res.status(500).send({ message: e.message });
   }
 };
 
