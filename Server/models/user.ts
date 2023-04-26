@@ -12,7 +12,7 @@ const userSchema = new Schema({
   },
   phoneNumberFirebaseId: {
     type: String,
-    unique: true,
+    // unique: true,
   },
   gender: {
     type: String,
