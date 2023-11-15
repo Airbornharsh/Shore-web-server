@@ -83,7 +83,7 @@ const main = async (req: any, res: any) => {
           notification: {
             title: "Followed",
             body: `${user2Data.userName.toString()} followed you`,
-            icon: "https://foo.bar.pizza-monster.png",
+            // icon: "https://foo.bar.pizza-monster.png",
           },
           // android: {
           //   notification: {
@@ -98,19 +98,26 @@ const main = async (req: any, res: any) => {
           },
         };
 
-        FCM.sendToMultipleToken(
-          message,
+        const response = await FCM.messaging().sendToDevice(
           tempDeviceTokens,
-          (err: any, response: any) => {
-            if (err) {
-              console.log("Something has gone wrong!", err);
-              console.log("Step 10");
-            } else {
-              console.log("Successfully sent with response: ", response);
-              console.log("Step 11");
-            }
-          }
+          message
         );
+
+        console.log(response);
+
+        // FCM.sendToMultipleToken(
+        //   message,
+        //   tempDeviceTokens,
+        //   (err: any, response: any) => {
+        //     if (err) {
+        //       console.log("Something has gone wrong!", err);
+        //       console.log("Step 10");
+        //     } else {
+        //       console.log("Successfully sent with response: ", response);
+        //       console.log("Step 11");
+        //     }
+        //   }
+        // );
 
         return res.send({ message: "Followed" });
       }
@@ -118,44 +125,6 @@ const main = async (req: any, res: any) => {
   } catch (e: any) {
     return res.status(500).send({ message: e.message });
   }
-};
-
-const sendNotification = async (user1: any, user2: any, FCM: any) => {
-  const tempDeviceTokens = user1.deviceTokens;
-
-  const message = {
-    // to: token,
-    // token,
-    notification: {
-      title: "Followed",
-      body: `${user2.userName} followed you`,
-    },
-    android: {
-      notification: {
-        imageUrl: "https://foo.bar.pizza-monster.png",
-      },
-    },
-    data: {
-      senderUserId: "Dum",
-      time: Date.now(),
-      message: "Oh",
-      type: "text",
-    },
-  };
-
-  FCM.sendToMultipleToken(
-    message,
-    tempDeviceTokens,
-    (err: any, response: any) => {
-      if (err) {
-        console.log("Something has gone wrong!", err);
-        console.log("Step 10");
-      } else {
-        console.log("Successfully sent with response: ", response);
-        console.log("Step 11");
-      }
-    }
-  );
 };
 
 export default main;

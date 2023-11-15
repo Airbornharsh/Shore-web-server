@@ -1,5 +1,5 @@
 const admin = require("firebase-admin");
-const fcm = require("fcm-notification");
+// const fcm = require("fcm-notification");
 // import fcm from "fcm-notification";
 
 let FCM;
@@ -30,9 +30,14 @@ const setFirebase = async () => {
       .split(String.raw`\n`)
       .join("\n");
 
-    const certPath = await admin.credential.cert(serviceAccount);
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+    });
 
-    FCM = await new fcm(certPath);
+    // const certPath = await admin.credential.cert(serviceAccount);
+
+    // FCM = await new fcm(certPath);
+    FCM = admin;
 
     fcmValid = true;
 

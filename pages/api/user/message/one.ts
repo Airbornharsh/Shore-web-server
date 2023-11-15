@@ -52,19 +52,23 @@ const main = async (req: any, res: any) => {
       },
     };
 
-    FCM.sendToMultipleToken(
-      message,
-      tempDeviceTokens,
-      (err: any, response: any) => {
-        if (err) {
-          console.log("Something has gone wrong!", err);
-          console.log("Step 10");
-        } else {
-          console.log("Successfully sent with response: ", response);
-          console.log("Step 11");
-        }
-      }
-    );
+    const response = await FCM.messaging().sendToDevice(tempDeviceTokens, message)
+
+    console.log(response)
+
+    // FCM.sendToMultipleToken(
+    //   message,
+    //   tempDeviceTokens,
+    //   (err: any, response: any) => {
+    //     if (err) {
+    //       console.log("Something has gone wrong!", err);
+    //       console.log("Step 10");
+    //     } else {
+    //       console.log("Successfully sent with response: ", response);
+    //       console.log("Step 11");
+    //     }
+    //   }
+    // );
 
     const newMessage = new DbModels!.message({
       from: AuthenticateDetail?._id,
