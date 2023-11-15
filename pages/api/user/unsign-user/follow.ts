@@ -73,7 +73,43 @@ const main = async (req: any, res: any) => {
           $addToSet: { followers: user2Data._id },
         });
 
-        await sendNotification(user1Data, user2Data, FCM);
+        // await sendNotification(user1Data, user2Data, FCM);
+
+        const tempDeviceTokens = user1Data.deviceTokens;
+
+        const message = {
+          // to: token,
+          // token,
+          notification: {
+            title: "Followed",
+            body: `${user2Data.userName} followed you`,
+          },
+          android: {
+            notification: {
+              imageUrl: "https://foo.bar.pizza-monster.png",
+            },
+          },
+          data: {
+            senderUserId: "Dum",
+            time: Date.now(),
+            message: "Oh",
+            type: "text",
+          },
+        };
+
+        FCM.sendToMultipleToken(
+          message,
+          tempDeviceTokens,
+          (err: any, response: any) => {
+            if (err) {
+              console.log("Something has gone wrong!", err);
+              console.log("Step 10");
+            } else {
+              console.log("Successfully sent with response: ", response);
+              console.log("Step 11");
+            }
+          }
+        );
 
         return res.send({ message: "Followed" });
       }
@@ -93,12 +129,17 @@ const sendNotification = async (user1: any, user2: any, FCM: any) => {
       title: "Followed",
       body: `${user2.userName} followed you`,
     },
-    // data: {
-    //   senderUserId: AuthenticateDetail._id.toString(),
-    //   time: body.currentTime.toString(),
-    //   message: body.message.toString(),
-    //   type: body.type ? body.type.trim() : "text",
-    // },
+    android: {
+      notification: {
+        imageUrl: "https://foo.bar.pizza-monster.png",
+      },
+    },
+    data: {
+      senderUserId: "Dum",
+      time: Date.now(),
+      message: "Oh",
+      type: "text",
+    },
   };
 
   FCM.sendToMultipleToken(
