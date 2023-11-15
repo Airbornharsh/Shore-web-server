@@ -4,12 +4,15 @@ const main = async (req: any, res: any) => {
   try {
     const body = req.body;
 
-    console.log(body)
+    console.log(body.page, body.limit);
+    console.log(body["page"], body["limit"]);
+
+    console.log(JSON.parse(req.body).page, JSON.parse(req.body).limit);
     // const body = req.body;
 
     const DbModels = await DbConnect1();
 
-    const page = body.page ? body.page : 1; 
+    const page = body.page ? body.page : 1;
     const limit = body.limit ? body.limit : 20;
 
     const postData = await DbModels?.post
@@ -58,11 +61,11 @@ const main = async (req: any, res: any) => {
       newPostData.push(temp);
     });
 
-    console.log(newPostData.length)
+    console.log(newPostData.length);
 
-  return res.send(newPostData);
+    return res.send(newPostData);
   } catch (e: any) {
-  return res.status(500).send({message: e.message});
+    return res.status(500).send({ message: e.message });
   }
 };
 
