@@ -49,26 +49,11 @@ const main = async (req: any, res: any) => {
         time: body.currentTime.toString(),
         message: body.message.toString(),
         type: body.type ? body.type.trim() : "text",
+        for: "messaging"
       },
     };
 
-    const response = await FCM.messaging().sendToDevice(tempDeviceTokens, message)
-
-    console.log(response)
-
-    // FCM.sendToMultipleToken(
-    //   message,
-    //   tempDeviceTokens,
-    //   (err: any, response: any) => {
-    //     if (err) {
-    //       console.log("Something has gone wrong!", err);
-    //       console.log("Step 10");
-    //     } else {
-    //       console.log("Successfully sent with response: ", response);
-    //       console.log("Step 11");
-    //     }
-    //   }
-    // );
+    await FCM.messaging().sendToDevice(tempDeviceTokens, message)
 
     const newMessage = new DbModels!.message({
       from: AuthenticateDetail?._id,

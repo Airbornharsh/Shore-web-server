@@ -1,4 +1,5 @@
 import { DbConnect1 } from "../../../../Server/config/Db_Config";
+import { setFirebase } from "../../../../Server/config/Firebase_Config";
 import Authenticate from "../../../../Server/middlewares/Authenticate";
 
 const main = async (req: any, res: any) => {
@@ -10,7 +11,7 @@ const main = async (req: any, res: any) => {
     }
 
     const DbModels = await DbConnect1();
-
+    const FCM = await setFirebase();
     const AuthenticateDetail = await Authenticate(req, res);
 
     const user1Data =
@@ -29,6 +30,28 @@ const main = async (req: any, res: any) => {
       await DbModels?.user.findByIdAndUpdate(body.userId, {
           $pull: { followers: AuthenticateDetail?._id },
       });
+
+      const tempDeviceTokens = user2Data.deviceTokens;
+
+      const message = {
+        // to: token,
+        // token,
+        notification: {
+          title: "UnFollowed",
+          body: `${user1Data.userName.toString()} unfollowed you`
+        },
+        data: {
+          followedBy: user1Data._id.toString(),
+          time: Date.now().toString(),
+          for: "follow"
+        },
+      };
+
+      await FCM.messaging().sendToDevice(
+        tempDeviceTokens,
+        message
+      );
+
 
       return res.send({ message: "Unfollowed" });
     } else {

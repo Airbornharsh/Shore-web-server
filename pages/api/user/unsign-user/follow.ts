@@ -84,39 +84,17 @@ const main = async (req: any, res: any) => {
             title: "Followed",
             body: `${user2Data.userName.toString()} followed you`
           },
-          android: {
-            notification: {
-              imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Circle-icons-image.svg/1200px-Circle-icons-image.svg.png",
-            },
-          },
           data: {
-            senderUserId: "Dum",
+            followedBy: user2Data._id.toString(),
             time: Date.now().toString(),
-            message: "Oh",
-            type: "text",
+            for: "follow"
           },
         };
 
-        const response = await FCM.messaging().sendToDevice(
+        await FCM.messaging().sendToDevice(
           tempDeviceTokens,
           message
         );
-
-        console.log(response);
-
-        // FCM.sendToMultipleToken(
-        //   message,
-        //   tempDeviceTokens,
-        //   (err: any, response: any) => {
-        //     if (err) {
-        //       console.log("Something has gone wrong!", err);
-        //       console.log("Step 10");
-        //     } else {
-        //       console.log("Successfully sent with response: ", response);
-        //       console.log("Step 11");
-        //     }
-        //   }
-        // );
 
         return res.send({ message: "Followed" });
       }
