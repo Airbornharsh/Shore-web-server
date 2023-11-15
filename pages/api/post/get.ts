@@ -3,12 +3,14 @@ import { DbConnect1 } from "../../../Server/config/Db_Config";
 const main = async (req: any, res: any) => {
   try {
     const body = req.body;
+
+    console.log(body)
     // const body = req.body;
 
     const DbModels = await DbConnect1();
 
     const page = body.page ? body.page : 1; 
-    const limit = body.limit ? body.limit : 5;
+    const limit = body.limit ? body.limit : 20;
 
     const postData = await DbModels?.post
       .find()
