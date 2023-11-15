@@ -82,7 +82,7 @@ const main = async (req: any, res: any) => {
           // token,
           notification: {
             title: "Followed",
-            body: `${user2Data.userName.toString()} followed you`
+            body: `@${user2Data.userName.toString()} followed you`
           },
           data: {
             userId: user2Data._id.toString(),

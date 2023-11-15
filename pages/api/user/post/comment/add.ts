@@ -52,7 +52,7 @@ const main = async (req: any, res: any) => {
       // token,
       notification: {
         title: "Commented",
-        body: `${user2Data.userName.toString()} Commented "${
+        body: `@${user2Data.userName.toString()} Commented "${
           body.description
         }"`,
       },
