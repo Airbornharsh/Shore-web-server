@@ -41,7 +41,7 @@ const main = async (req: any, res: any) => {
           body: `${user1Data.userName.toString()} unfollowed you`
         },
         data: {
-          followedBy: user1Data._id.toString(),
+          userId: user1Data._id.toString(),
           time: Date.now().toString(),
           for: "follow"
         },

@@ -85,7 +85,7 @@ const main = async (req: any, res: any) => {
             body: `${user2Data.userName.toString()} followed you`
           },
           data: {
-            followedBy: user2Data._id.toString(),
+            userId: user2Data._id.toString(),
             time: Date.now().toString(),
             for: "follow"
           },
