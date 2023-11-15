@@ -59,7 +59,7 @@ const main = async (req: any, res: any) => {
       data: {
         postId: body.postId.toString(),
         time: Date.now().toString(),
-        for: "post",
+        for: "comment",
       },
     };
 
