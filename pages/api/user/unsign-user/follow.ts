@@ -83,7 +83,7 @@ const main = async (req: any, res: any) => {
           notification: {
             title: "Followed",
             body: `${user2Data.userName.toString()} followed you`,
-            // icon: "https://foo.bar.pizza-monster.png",
+            icon: "https://foo.bar.pizza-monster.png",
           },
           // android: {
           //   notification: {
