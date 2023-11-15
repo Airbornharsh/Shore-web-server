@@ -56,6 +56,8 @@ const main = async (req: any, res: any) => {
       newPostData.push(temp);
     });
 
+    console.log(newPostData.length)
+
   return res.send(newPostData);
   } catch (e: any) {
   return res.status(500).send({message: e.message});
