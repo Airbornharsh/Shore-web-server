@@ -82,14 +82,13 @@ const main = async (req: any, res: any) => {
           // token,
           notification: {
             title: "Followed",
-            body: `${user2Data.userName.toString()} followed you`,
-            icon: "https://foo.bar.pizza-monster.png",
+            body: `${user2Data.userName.toString()} followed you`
           },
-          // android: {
-          //   notification: {
-          //     imageUrl: "https://foo.bar.pizza-monster.png",
-          //   },
-          // },
+          android: {
+            notification: {
+              imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Circle-icons-image.svg/1200px-Circle-icons-image.svg.png",
+            },
+          },
           data: {
             senderUserId: "Dum",
             time: Date.now().toString(),
