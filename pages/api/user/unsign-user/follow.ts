@@ -82,7 +82,7 @@ const main = async (req: any, res: any) => {
           // token,
           notification: {
             title: "Followed",
-            body: `${user2Data.userName} followed you`,
+            body: `${user2Data.userName.toString()} followed you`,
           },
           android: {
             notification: {
@@ -91,7 +91,7 @@ const main = async (req: any, res: any) => {
           },
           data: {
             senderUserId: "Dum",
-            time: Date.now(),
+            time: Date.now().toString(),
             message: "Oh",
             type: "text",
           },
