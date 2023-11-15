@@ -3,11 +3,6 @@ import { DbConnect1 } from "../../../Server/config/Db_Config";
 const main = async (req: any, res: any) => {
   try {
     const body = req.body;
-
-    console.log(body.page, body.limit);
-    console.log(body["page"], body["limit"]);
-
-    console.log(JSON.parse(req.body).page, JSON.parse(req.body).limit);
     // const body = req.body;
 
     const DbModels = await DbConnect1();
