@@ -1,4 +1,5 @@
 import { DbConnect1 } from "../../../../Server/config/Db_Config";
+import { setFirebase } from "../../../../Server/config/Firebase_Config";
 import Authenticate from "../../../../Server/middlewares/Authenticate";
 
 const main = async (req: any, res: any) => {
@@ -11,7 +12,7 @@ const main = async (req: any, res: any) => {
     }
 
     const DbModels = await DbConnect1();
-
+    const FCM = await setFirebase();
     const AuthenticateDetail = await Authenticate(req, res);
 
     const user1Data = (await DbModels?.user.findById(body.userId)) || [];
@@ -72,12 +73,47 @@ const main = async (req: any, res: any) => {
           $addToSet: { followers: user2Data._id },
         });
 
+        await sendNotification(user1Data, user2Data, FCM);
+
         return res.send({ message: "Followed" });
       }
     }
   } catch (e: any) {
-  return res.status(500).send({message: e.message});
+    return res.status(500).send({ message: e.message });
   }
+};
+
+const sendNotification = async (user1: any, user2: any, FCM: any) => {
+  const tempDeviceTokens = user1.deviceTokens;
+
+  const message = {
+    // to: token,
+    // token,
+    notification: {
+      title: "Followed",
+      body: `${user2.userName} followed you`,
+    },
+    // data: {
+    //   senderUserId: AuthenticateDetail._id.toString(),
+    //   time: body.currentTime.toString(),
+    //   message: body.message.toString(),
+    //   type: body.type ? body.type.trim() : "text",
+    // },
+  };
+
+  FCM.sendToMultipleToken(
+    message,
+    tempDeviceTokens,
+    (err: any, response: any) => {
+      if (err) {
+        console.log("Something has gone wrong!", err);
+        console.log("Step 10");
+      } else {
+        console.log("Successfully sent with response: ", response);
+        console.log("Step 11");
+      }
+    }
+  );
 };
 
 export default main;
