@@ -45,26 +45,26 @@ const main = async (req: any, res: any) => {
           body: `@${user2Data.userName.toString()} Liked your post`,
           image: "https://i.stack.imgur.com/ILTQq.png",
         },
-        android: {
-          notification: {
-            imageUrl: "https://i.stack.imgur.com/ILTQq.png",
-          },
-        },
-        apns: {
-          payload: {
-            aps: {
-              "mutable-content": 1,
-            },
-          },
-          fcm_options: {
-            image: "https://i.stack.imgur.com/ILTQq.png",
-          },
-        },
-        webpush: {
-          headers: {
-            image: "https://i.stack.imgur.com/ILTQq.png",
-          },
-        },
+        // android: {
+        //   notification: {
+        //     imageUrl: "https://i.stack.imgur.com/ILTQq.png",
+        //   },
+        // },
+        // apns: {
+        //   payload: {
+        //     aps: {
+        //       "mutable-content": 1,
+        //     },
+        //   },
+        //   fcm_options: {
+        //     image: "https://i.stack.imgur.com/ILTQq.png",
+        //   },
+        // },
+        // webpush: {
+        //   headers: {
+        //     image: "https://i.stack.imgur.com/ILTQq.png",
+        //   },
+        // },
         data: {
           postId: body.postId.toString(),
           time: Date.now().toString(),
