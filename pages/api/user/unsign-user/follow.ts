@@ -82,19 +82,17 @@ const main = async (req: any, res: any) => {
           // token,
           notification: {
             title: "Followed",
-            body: `@${user2Data.userName.toString()} followed you`
+            body: `@${user2Data.userName.toString()} followed you`,
+            image: user2Data.imgUrl ? user2Data.imgUrl : "",
           },
           data: {
             userId: user2Data._id.toString(),
             time: Date.now().toString(),
-            for: "follow"
+            for: "follow",
           },
         };
 
-        await FCM.messaging().sendToDevice(
-          tempDeviceTokens,
-          message
-        );
+        await FCM.messaging().sendToDevice(tempDeviceTokens, message);
 
         return res.send({ message: "Followed" });
       }

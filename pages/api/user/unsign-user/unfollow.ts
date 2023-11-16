@@ -38,7 +38,8 @@ const main = async (req: any, res: any) => {
         // token,
         notification: {
           title: "UnFollowed",
-          body: `@${user1Data.userName.toString()} unfollowed you`
+          body: `@${user1Data.userName.toString()} unfollowed you`,
+          image: user1Data.imgUrl ? user1Data.imgUrl : "",
         },
         data: {
           userId: user1Data._id.toString(),
