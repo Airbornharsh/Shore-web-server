@@ -43,7 +43,7 @@ const main = async (req: any, res: any) => {
         notification: {
           title: "Liked",
           body: `@${user2Data.userName.toString()} Liked your post`,
-          image: "https://i.stack.imgur.com/ILTQq.png",
+          image: postData.url ? postData.url : "",
         },
         // android: {
         //   notification: {
