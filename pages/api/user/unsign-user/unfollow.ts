@@ -31,27 +31,27 @@ const main = async (req: any, res: any) => {
           $pull: { followers: AuthenticateDetail?._id },
       });
 
-      const tempDeviceTokens = user2Data.deviceTokens;
+      // const tempDeviceTokens = user2Data.deviceTokens;
 
-      const message = {
-        // to: token,
-        // token,
-        notification: {
-          title: "UnFollowed",
-          body: `@${user1Data.userName.toString()} unfollowed you`,
-          image: user1Data.imgUrl ? user1Data.imgUrl : "",
-        },
-        data: {
-          userId: user1Data._id.toString(),
-          time: Date.now().toString(),
-          for: "follow"
-        },
-      };
+      // const message = {
+      //   // to: token,
+      //   // token,
+      //   notification: {
+      //     title: "UnFollowed",
+      //     body: `@${user1Data.userName.toString()} unfollowed you`,
+      //     image: user1Data.imgUrl ? user1Data.imgUrl : "",
+      //   },
+      //   data: {
+      //     userId: user1Data._id.toString(),
+      //     time: Date.now().toString(),
+      //     for: "follow"
+      //   },
+      // };
 
-      await FCM.messaging().sendToDevice(
-        tempDeviceTokens,
-        message
-      );
+      // await FCM.messaging().sendToDevice(
+      //   tempDeviceTokens,
+      //   message
+      // );
 
 
       return res.send({ message: "Unfollowed" });
